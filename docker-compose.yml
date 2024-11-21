@@ -7,6 +7,8 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
     build: ./backend
@@ -19,6 +21,8 @@ services:
       - DB_NAME=library
     depends_on:
       - mysql-db
+    networks:
+      - app-network
 
   mysql-db:
     image: mysql:8
@@ -27,4 +31,10 @@ services:
       MYSQL_DATABASE: library
     ports:
       - "3306:3306"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
